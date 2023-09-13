@@ -1,10 +1,10 @@
 
 
+https://github.com/Paulo-vca/BACKBETO2/blob/main/backbeto/controller/product/productController.js
 
 
-
-import { json } from 'body-parser';
-app.use(json())
+const bodyParser=require('body-parser')
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
     res.json({ message: "Ëxpress is running..."});
