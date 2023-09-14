@@ -1,6 +1,10 @@
+require("dotenv-safe").config()
+const jwt = require('jsonwebtoken')
+const express = require('express')
+const http = require('http')
+const app = express()
+const port = 3000
 
-
-https://github.com/Paulo-vca/BACKBETO2/blob/main/backbeto/controller/product/productController.js
 
 
 const bodyParser=require('body-parser')
@@ -12,11 +16,11 @@ app.get('/', (req, res) => {
 
 app.get("/users", verifyJWT, (req, res, next) =>{
     console.log('show users')
-    res.json([{id: 1, nome: 'Bruno'}])
+    res.json([{id: 1, nome: 'Paulo'}])
 });
 
 app.post('/login', (req, res, next) => {
-    if(req.body.user === 'Bruno' && req.body.pwd === '123'){
+    if(req.body.user === 'Paulo' && req.body.pwd === '123'){
         //auth ok
         const id = 1; //esse id viria do banco de dados
         const token = jwt.sign({ id }, process.env.SECRET, {
