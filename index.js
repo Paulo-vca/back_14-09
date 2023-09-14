@@ -5,7 +5,7 @@ const http = require('http')
 const app = express()
 const port = 3000
 
-
+// DATABASE_URL="postgresql://postgres:ifms@localhost:5432/paulo?schema=public" .env
 
 const bodyParser=require('body-parser')
 app.use(bodyParser.json())
