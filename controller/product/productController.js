@@ -1,76 +1,55 @@
-const products = require('../../data/productData')
-/**
- * GETALL FUNCTION
- */
+//products
 exports.getAll = (req, res) => {
-  // buscar em bd (respositorio)
+  //buscar em bd (repositorio)
   res.json(products);
 };
 
-/**
- * FIND PRODUCT BY ID FUNCTION
- */
-exports.getOne = (req, res) => {
-  const id = Number(req.params.id); // falta de converter em number (pode acontecer problem)
+//recebe o paramentro id
+exports.getId = (req, res) => {
+  //exibe o paramentro id
+  res.send("ID =" + req.params.id);
+  //res.json(products[req.params.id]) //retorna em forma de json
+};
+
+exports.updateProduct = (req, res) => {
+  const id = Number(req.params.id); // problema que pode acontecer: falta de converter em number
 
   const product = products.find((p) => p.id === id);
 
-  // if (!product) return res.status(404).send("Product not found!");
+  //if(!product) return res.status(404).send('Product not found'); //Retorna em forma de status
   if (!product)
     return res.status(404).json({
-      status: 404,
-      message: "Product not found!",
+      message: "Product not found",
     });
 
   res.json(product);
 };
 
-exports.addProduct = (req, res) => {
-  let name = req.body.name;
-  console.log(`Name iss ${name}`);
-  // adicione o produto no array
-  products.push({ id: products.length + 1, name: name });
-  return res.json(products);
-};
-
-/**
- * UPDATE FUNCTION
- */
-exports.updateProduct = (req, res) => {
-  // let name = req.body.name
+exports.deleteproduct = (req, res) => {
   let { name } = req.body;
-  let id = Number(req.params.id);
+  let id = req.params.id;
 
   const product = products.find((p) => p.id === id);
 
   if (!product)
     return res.status(404).json({
-      status: 404,
-      message: "Product not found!",
+      message: "Product not found",
     });
 
-  products[id].name = name;
+  products[req.params.id] = name;
 
   return res.json(products[id]);
 };
-/**
- * DELETE FUNCTION
- */
-exports.deleteProduct = (req, res) => {
-  let id = Number(req.params.id);
 
-  const product = products.find((p) => p.id === id);
+app.post("/api", (req, res) => {
+  let name = req.body.name;
+  console.log(`name is ${name}`);
 
-  if (!product)
-    return res.status(404).json({
-      status: 404,
-      message: "Product not found!",
-    });
+  products.push({ id: products.length + 1, name: name });
 
-  products = products.filter((p) => p.id !== id);
+  return res.json(products);
+});
 
-  return res.json({
-    status: 204,
-    message: "Product deleted!",
-  });
-};
+axios.get("https://dummyjson.com/products").then((response) => {
+  res.json(response.data); //****** */
+});
